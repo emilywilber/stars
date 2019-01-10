@@ -197,15 +197,18 @@ class StarPatterns
                 }
                 System.out.println();
             }   
+        //this also works :)    
+        //biggerCheckerBoard(h, w, 1);
+        
     }
     
-    public static void biggerCheckerBoard(int h, int w)
+    public static void biggerCheckerBoard(int h, int w, int size)
     {
-        for (int row=0; row<h; row++)
+        for (int row=0; row<h*size; row++)
             {
-                for (int col=0; col<w; col++)
+                for (int col=0; col<w*size; col++)
                 {
-                    if ((row / 3) % 2 != 0 && (col / 3) % 2 != 0 || (row / 3) % 2 == 0 && (col / 3) % 2 == 0) {
+                    if ((row / size) % 2 == (col / size) % 2) {
                         System.out.print("*");
                     }
                     else {
@@ -236,39 +239,6 @@ class StarPatterns
             }   
     }
     
-    /**
-     * A more efficient way to determine if an int is prime.
-     * 
-     * @param n     number to test
-     * @return      true if number is prime, false otherwise
-     */
-    public static int whatIsPrime(int n)
-    {
-        boolean prime = false; 
-        if (n == 2) {        
-            prime = true;
-        }
-        else if (n % 2==0) {
-            prime = false;
-        }
-        double limit = Math.sqrt(n);
-        
-        for (int i=3; i<=limit; i+=2)
-        {
-            if (n % i == 0) {
-                prime = false;
-            }
-        }
-        
-        prime = true;
-        
-        if (prime) {
-            return n;
-        }
-        else {
-            return 0;
-        }
-    }
     
     /**
      * A more efficient way to determine if an int is prime.
@@ -281,7 +251,11 @@ class StarPatterns
         if (n == 2) {        
             return true;
         }
+        
         else if (n % 2==0) {
+            return false;
+        }
+        if (n == 1) {
             return false;
         }
         double limit = Math.sqrt(n);
@@ -299,13 +273,57 @@ class StarPatterns
     public static void primeStars(int n)
     {
         for (int row=0; row<n; row++)
-            {
-                if (isPrime2(n)) {
-                   System.out.print("*");
+        {
+            if (isPrime2(row)) {
+                for (int i = 0; i < row; i++) {
+                    System.out.print("*");
                 }
                 System.out.println();
-            }  
+            } 
+            else {
+                n++;
+            }
+        }
         
+    }
+    
+    public static void fibonacciStars(int n)
+    {
+        int last = 0;
+        int now = 1;
+        int temp = 0;
+        for (int row=0; row<n; row++)
+        {
+             for (int i = 0; i < now; i++) {
+                    System.out.print("*");
+                    
+                }
+             System.out.println();
+             temp = now;
+             now += last;
+             last = temp;
+        }
+    }
+    
+    public static void starFlag()
+    {
+        for (int row=0; row<13; row++)
+            {
+                for (int col=0; col<37; col++)
+                {
+                    if (col < 17 && row < 7) {
+                        System.out.print("*");
+                    }
+                    else if (row % 2 == 0) {
+                        System.out.print("R");
+                    }
+                    else {
+                        System.out.print(" ");
+                    }
+                    //System.out.print(row + "" + col + " ");
+                }
+                System.out.println();
+            } 
     }
     
     public static void main(String[] args) 
@@ -340,7 +358,7 @@ class StarPatterns
         checkerBoard(6, 8);
         System.out.println();
         
-        biggerCheckerBoard(24, 30);
+        biggerCheckerBoard(8, 10, 3);
         System.out.println();
         
         upsideDownCheckeredTriangle(6);
@@ -349,14 +367,14 @@ class StarPatterns
         primeStars(7);
         System.out.println();
         
-        //fibonacciStars(8);
-        //System.out.println();
-        
-        //starFlag();
-        ////System.out.println();
-        
-        starGrid(6, 11);
+        fibonacciStars(8);
         System.out.println();
+        
+        starFlag();
+        System.out.println();
+        
+        //starGrid(6, 11);
+        //System.out.println();
     }
      
 }
